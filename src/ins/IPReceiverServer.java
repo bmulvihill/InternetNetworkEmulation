@@ -54,27 +54,30 @@ class Connection extends Thread {
 
 	  public void run() { 
 		try { 		
-			  FileWriter out = new FileWriter("/Users/bmulvihill/Desktop/builtfile.txt", true);
-			  BufferedWriter bufWriter = new BufferedWriter(out);
+                                  
+                          //FileWriter out = new FileWriter("/Users/bmulvihill/Desktop/builtfile.txt", true);
+			  FileWriter out = null;
 			  //Step 1 read length
 			  int nb = input.readInt();
 			  System.out.println("Read Length: "+ nb);
                           System.out.println("Writing.......");
                           int total = 0;
                           ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                          byte buffer[] = new byte[config.packetSize + 47];
+                          byte buffer[] = new byte[config.packetSize + Packet.HEADERSIZE];
                             //Step 2 read byte
                             for(int s; (s=input.read(buffer)) != -1; )
                             {
                              System.out.println ("Current value of s: " + s);
                               Packet p = new Packet(buffer);
-                              //pq.add(p);
+                              out = new FileWriter("/Users/bmulvihill/Desktop/" + p.fileName, true);   
+                              pq.add(p);
                               baos.write(buffer, 0, s);
                               total += s;
                               if (total == nb) break;
                             }
                            byte result[] = baos.toByteArray();
 			   String st = new String(result);
+                           BufferedWriter bufWriter = new BufferedWriter(out);
                            bufWriter.append(st);
 			   bufWriter.close();
                            System.out.println ("receive from : " + 

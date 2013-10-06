@@ -21,10 +21,15 @@ public class IPForwarder extends Thread {
             while(true){
                 if(!pq.isEmpty()){
                     Packet p = pq.remove();
-                    Socket s = new Socket(p.destIP, 7134);
-                    DataOutputStream output = new DataOutputStream( s.getOutputStream()); 
-                    output.writeInt((int)p.size + 47); 
-                    output.write(p.getPacket(), 0, p.size + 47);      
+                    if("localhost".equals(p.destIP)){
+                        ChunkQueue q = ChunkQueue.getInstance();
+                        q.add(p);
+                    } else {
+                        Socket s = new Socket(p.destIP, 7134);
+                        DataOutputStream output = new DataOutputStream( s.getOutputStream()); 
+                        output.writeInt((int)p.size + Packet.HEADERSIZE); 
+                        output.write(p.getPacket(), 0, p.size + Packet.HEADERSIZE);  
+                    }    
                 }
                 Thread.sleep(50);
             }

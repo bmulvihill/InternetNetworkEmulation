@@ -60,6 +60,7 @@ public class HostThread extends Thread {
                 header.put("S", String.format("%04d", count));
                 header.put("N", packetNum);
                 header.put("T", packets);
+                header.put("FNAME", f.getName());
                 Packet p = new Packet(packet, header);
                 pq.add(p);
                 packetNum++;

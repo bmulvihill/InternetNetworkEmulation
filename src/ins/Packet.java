@@ -11,13 +11,14 @@ import java.util.*;
  * @author bmulvihill
  */
 public class Packet {
-    private static int HEADERSIZE = 47;
+    public static int HEADERSIZE = 67;
     protected String destIP;
     protected int destPort;
     protected int total;
     protected int size;
     protected int seqNum;
     protected int totalPackets;
+    protected String fileName;
 
     // Constructor for new packet
     Packet(byte[] packet, HashMap headerMap) {
@@ -25,7 +26,6 @@ public class Packet {
         for(int i=0; i < headerMap.toString().length(); i++){  
             header = headerMap.toString().getBytes();  
         }
-        
         setHeaderValues(headerMap);
         setPacketWithHeaders();
     }
@@ -36,7 +36,7 @@ public class Packet {
         HashMap headerHash = new HashMap();
         String s = new String(packetWithHeader);
         
-        String headerValues = s.substring(1, 46);
+        String headerValues = s.substring(1, Packet.HEADERSIZE - 1);
         String[] pairs = headerValues.split(",");
         for (int i=0;i<pairs.length;i++) {
             String pair = pairs[i].trim();
@@ -46,13 +46,19 @@ public class Packet {
         setHeaderValues(headerHash);
     }
     
+    /**
+     * 
+     * @param h HashMap that will be used to set Packet properties
+     */
     protected void setHeaderValues(HashMap h){
+        System.out.println(h);
         destIP = h.get("I").toString();
         destPort = Integer.parseInt(h.get("P").toString());
         total = Integer.parseInt(h.get("F").toString());
         size = Integer.parseInt(h.get("S").toString());
         seqNum = Integer.parseInt(h.get("N").toString());
         totalPackets = Integer.parseInt(h.get("T").toString());
+        fileName = h.get("FNAME").toString();
     }
     
     /**
@@ -66,6 +72,10 @@ public class Packet {
         this.packetWithHeader = tempPacket;
     }
     
+    /**
+     * 
+     * @return size of packet with headers
+     */
     protected int getSize(){
         return packetWithHeader.length;
     }
