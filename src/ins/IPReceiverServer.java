@@ -14,7 +14,7 @@ public class IPReceiverServer extends Thread {
     private int serverPort;
     public IPReceiverServer(){
         Config config = Config.getInstance();
-        serverPort = config.serverPort;
+        serverPort = 7134;//config.serverPort;
     }
     
     @Override
@@ -54,24 +54,23 @@ class Connection extends Thread {
 
 	  public void run() { 
 		try { 		
-			  FileWriter out = new FileWriter("test.txt");
+			  FileWriter out = new FileWriter("/Users/bmulvihill/Desktop/builtfile.txt", true);
 			  BufferedWriter bufWriter = new BufferedWriter(out);
 			  //Step 1 read length
 			  int nb = input.readInt();
-			  System.out.println("Read Length"+ nb);
-
+			  System.out.println("Read Length: "+ nb);
                           System.out.println("Writing.......");
                           int total = 0;
                           ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                          byte buffer[] = new byte[config.packetSize + 10];
+                          byte buffer[] = new byte[config.packetSize + 47];
                             //Step 2 read byte
                             for(int s; (s=input.read(buffer)) != -1; )
                             {
+                             System.out.println ("Current value of s: " + s);
                               Packet p = new Packet(buffer);
-                              pq.add(p);
-                              //baos.write(buffer, 0, s);
+                              //pq.add(p);
+                              baos.write(buffer, 0, s);
                               total += s;
-                              System.out.println(total);
                               if (total == nb) break;
                             }
                            byte result[] = baos.toByteArray();

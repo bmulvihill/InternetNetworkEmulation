@@ -9,7 +9,7 @@ import java.net.*;
 import java.io.*; 
 
 
-public class BaseProgram { 
+public class InternetNetworkEmulation { 
  public static int HEADERSIZE = 10;
  
 	public static void main (String args[]) 
@@ -19,6 +19,8 @@ public class BaseProgram {
 
                 HostProgram h = new HostProgram();
                 IPProtocol ipp = new IPProtocol();
+//            PacketQueue pq = PacketQueue.getInstance();
+//            Socket s = null;
 //		try{ 
 //                        //config settings
 //                        BufferedReader inFromUser = new BufferedReader(new FileReader("config.txt"));
@@ -26,19 +28,19 @@ public class BaseProgram {
 //                        int serverPort = Integer.parseInt(inFromUser.readLine());
 //                        int packetSize = Integer.parseInt(inFromUser.readLine());
 //
-//                        File file = new File("test.txt");
-//                        s = new Socket(ip, serverPort); 
-//                        DataInputStream input = new DataInputStream( s.getInputStream()); 
-//                        DataOutputStream output = new DataOutputStream( s.getOutputStream()); 
+//                        File file = new File("/Users/bmulvihill/Desktop/testfile.txt");
+//                        //s = new Socket("localhost", 6312); 
+//                        //DataInputStream input = new DataInputStream( s.getInputStream()); 
+//                       // DataOutputStream output = new DataOutputStream( s.getOutputStream()); 
 //   
 //                        int packets = (int)file.length() % 1000 > 0 ? (int)(file.length()/packetSize) +1 : (int)file.length()/packetSize;
 //                            
 //                            System.out.println("Writing.......");
 //                            //Step 1 send length
-//                            output.writeInt((int)file.length() + (HEADERSIZE * packets)); // UTF is a string encoding
+//                            //output.writeInt((int)file.length() + (HEADERSIZE * packets)); // UTF is a string encoding
 //                            FileInputStream in = new FileInputStream(file);
-//                            int count;
-//                            byte[] packet = new byte[1000];
+//                           int count;
+//                           byte[] packet = new byte[1000];
 //                            int packetNum = 1;
 //                            while ((count = in.read(packet)) > 0)
 //                            {
@@ -48,26 +50,27 @@ public class BaseProgram {
 //                                for(int i=0; i < headerString.length(); i++){  
 //                                    header = headerString.getBytes();  
 //                                }
-//                                Packet p = new Packet(packet, header);
+//                                System.out.println(packet.length);
+//                                Packet p = new Packet(packet);
 //                                pq.add(p);
 //                                packetNum++;
 //                            }
 //                            
 //                            while(pq.isEmpty() == false){
 //                                Packet sendPacket = pq.remove();
-//                                output.write(sendPacket.getPacket(), 0, sendPacket.getPacket().length);
+//                              //  output.write(sendPacket.getPacket(), 0, sendPacket.getPacket().length);
 //                            }
-                            //read response from server
-                          //Step 1 read length
-			  //int nb = input.readInt();
-			  //byte[] digit = new byte[nb];
-                          //System.out.println(digit);
-			  //Step 2 read byte
-			  //for(int i = 0; i < nb; i++)
-			//	digit[i] = input.readByte();
-		  
-			  //String st = new String(digit);
-		  //System.out.println("Received: "+ st); 
+//                            //read response from server
+//                          //Step 1 read length
+//			  //int nb = input.readInt();
+//			  //byte[] digit = new byte[nb];
+//                          //System.out.println(digit);
+//			  //Step 2 read byte
+//			  //for(int i = 0; i < nb; i++)
+//			//	digit[i] = input.readByte();
+//		  
+//			  //String st = new String(digit);
+//		  //System.out.println("Received: "+ st); 
 //		}
 //		catch (UnknownHostException e){ 
 //			System.out.println("Sock:"+e.getMessage());}

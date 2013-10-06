@@ -52,12 +52,14 @@ public class HostThread extends Thread {
             byte[] packet = new byte[packetSize];
             int packetNum = 1;
             while ((count = in.read(packet)) > 0){
+               
                 HashMap header = new HashMap();
-                header.put("IP", destIP);
-                header.put("Port", config.serverPort);
-                header.put("SeqNum", packetNum);
-                header.put("TotalSize", packets);
-                //"Packet: " + String.format("%02d", packetNum)+ ".";
+                header.put("I", destIP);
+                header.put("P", config.serverPort);
+                header.put("F", String.format("%04d", f.length()));
+                header.put("S", String.format("%04d", count));
+                header.put("N", packetNum);
+                header.put("T", packets);
                 Packet p = new Packet(packet, header);
                 pq.add(p);
                 packetNum++;

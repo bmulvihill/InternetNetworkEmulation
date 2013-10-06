@@ -11,8 +11,8 @@ import java.io.*;
  */
 public class IPProtocol {
     public IPProtocol(){
-        //IPReceiverServer ipServ = new IPReceiverServer();
-        //ipServ.start();
+        IPReceiverServer ipServ = new IPReceiverServer();
+        ipServ.start();
         IPForwarder ipFwd = new IPForwarder();
         ipFwd.start();
     } 
