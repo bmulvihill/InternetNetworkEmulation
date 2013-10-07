@@ -53,10 +53,7 @@ class Connection extends Thread {
 	  } 
 
 	  public void run() { 
-		try { 		
-                                  
-                          //FileWriter out = new FileWriter("/Users/bmulvihill/Desktop/builtfile.txt", true);
-			  FileWriter out = null;
+		try { 		                                
 			  //Step 1 read length
 			  int nb = input.readInt();
 			  System.out.println("Read Length: "+ nb);
@@ -66,17 +63,11 @@ class Connection extends Thread {
                             for(int s; (s=input.read(buffer)) != -1; )
                             {
                              System.out.println ("Current value of s: " + s);
-                              Packet p = new Packet(buffer);
-                              //out = new FileWriter("/Users/bmulvihill/Desktop/" + p.fileName, true);   
+                              Packet p = new Packet(buffer);  
                               pq.add(p);
-                              
                               total += s;
                               if (total == nb) break;
                             }
-                           
-                           //System.out.println ("receive from : " + 
-                           //clientSocket.getInetAddress() + ":" +
-                           //clientSocket.getPort() + " message - " + st);
 			} 
 			catch(EOFException e) {
 			System.out.println("EOF:"+e.getMessage()); } 

@@ -35,7 +35,7 @@ public class Packet {
         this.packetWithHeader = packet;
         HashMap headerHash = new HashMap();
         String s = new String(packetWithHeader);
-        
+        this.packet = s.substring(Packet.HEADERSIZE, s.length()).getBytes();
         String headerValues = s.substring(1, Packet.HEADERSIZE - 1);
         String[] pairs = headerValues.split(",");
         for (int i=0;i<pairs.length;i++) {
@@ -84,7 +84,7 @@ public class Packet {
     * Returns packet with header byte array
     */
     protected byte[] getPacket(){
-        return packetWithHeader;
+        return packet;
     }
     
     private byte[] packet;
