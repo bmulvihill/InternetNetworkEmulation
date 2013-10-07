@@ -14,7 +14,7 @@ public class IPReceiverServer extends Thread {
     private int serverPort;
     public IPReceiverServer(){
         Config config = Config.getInstance();
-        serverPort = 7134;//config.serverPort;
+        serverPort = config.serverPort;
     }
     
     @Override

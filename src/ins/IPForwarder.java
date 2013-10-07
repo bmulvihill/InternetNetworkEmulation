@@ -25,7 +25,7 @@ public class IPForwarder extends Thread {
                         ChunkQueue q = ChunkQueue.getInstance();
                         q.add(p);
                     } else {
-                        Socket s = new Socket(p.destIP, 7134);
+                        Socket s = new Socket(p.destIP, Config.getInstance().serverPort);
                         DataOutputStream output = new DataOutputStream( s.getOutputStream()); 
                         output.writeInt((int)p.size + Packet.HEADERSIZE); 
                         output.write(p.getPacket(), 0, p.size + Packet.HEADERSIZE);  

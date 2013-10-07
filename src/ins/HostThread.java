@@ -9,7 +9,6 @@ import java.util.*;
  * @author bmulvihill
  */
 public class HostThread extends Thread {
-    public static int HEADERSIZE = 10;
     PacketQueue pq = PacketQueue.getInstance();
     private int packetSize;
     Config config = Config.getInstance();

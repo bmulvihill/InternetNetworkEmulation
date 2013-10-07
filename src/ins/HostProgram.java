@@ -46,10 +46,10 @@ class ChunkThread extends Thread{
                     Thread.sleep(500);
                 }
                 catch (InterruptedException e){
-                    //..
+                    System.out.println(e.getMessage());
                 }
                 catch (IOException e){
-                    //..
+                    System.out.println(e.getMessage());
                 }
             }
     }
