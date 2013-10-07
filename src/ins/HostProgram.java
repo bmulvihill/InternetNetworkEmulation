@@ -5,6 +5,7 @@
 package ins;
 
 import java.io.*;
+import java.net.Socket;
 import java.util.*;
 
 /**
@@ -14,11 +15,45 @@ import java.util.*;
 public class HostProgram {
     public HostProgram(){
         HostThread sendThread = new HostThread();
-        sendThread.start();    
+        sendThread.start();
+        ChunkThread chunkThread = new ChunkThread();
+        chunkThread.start();
     }
     
 }
 
+class ChunkThread extends Thread{
+    private ChunkQueue cq = ChunkQueue.getInstance();
+    public ChunkThread(){
+        
+    }
+    
+    public void run(){
+            while(true){
+                try{
+                    if(!cq.isEmpty()){
+                        Packet p = cq.remove();
+                        System.out.println("Writing to Filesystem..");
+                        FileWriter out = new FileWriter("/Users/bmulvihill/Desktop/" + p.fileName, true);   
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        baos.write(p.getPacket(), 0, p.size + Packet.HEADERSIZE);
+                        byte result[] = baos.toByteArray();
+			String st = new String(result);
+                        BufferedWriter bufWriter = new BufferedWriter(out);
+                        bufWriter.append(st);
+			bufWriter.close();
+                    }
+                    Thread.sleep(500);
+                }
+                catch (InterruptedException e){
+                    //..
+                }
+                catch (IOException e){
+                    //..
+                }
+            }
+    }
+}
 class ChunkQueue {
     private Queue<Packet> queue = new LinkedList<Packet>();
     private static ChunkQueue instance = null;

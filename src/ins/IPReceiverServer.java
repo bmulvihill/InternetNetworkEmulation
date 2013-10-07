@@ -60,29 +60,23 @@ class Connection extends Thread {
 			  //Step 1 read length
 			  int nb = input.readInt();
 			  System.out.println("Read Length: "+ nb);
-                          System.out.println("Writing.......");
-                          int total = 0;
-                          ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                          int total = 0;             
                           byte buffer[] = new byte[config.packetSize + Packet.HEADERSIZE];
                             //Step 2 read byte
                             for(int s; (s=input.read(buffer)) != -1; )
                             {
                              System.out.println ("Current value of s: " + s);
                               Packet p = new Packet(buffer);
-                              out = new FileWriter("/Users/bmulvihill/Desktop/" + p.fileName, true);   
+                              //out = new FileWriter("/Users/bmulvihill/Desktop/" + p.fileName, true);   
                               pq.add(p);
-                              baos.write(buffer, 0, s);
+                              
                               total += s;
                               if (total == nb) break;
                             }
-                           byte result[] = baos.toByteArray();
-			   String st = new String(result);
-                           BufferedWriter bufWriter = new BufferedWriter(out);
-                           bufWriter.append(st);
-			   bufWriter.close();
-                           System.out.println ("receive from : " + 
-                           clientSocket.getInetAddress() + ":" +
-                           clientSocket.getPort() + " message - " + st);
+                           
+                           //System.out.println ("receive from : " + 
+                           //clientSocket.getInetAddress() + ":" +
+                           //clientSocket.getPort() + " message - " + st);
 			} 
 			catch(EOFException e) {
 			System.out.println("EOF:"+e.getMessage()); } 

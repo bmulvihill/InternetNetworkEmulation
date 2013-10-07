@@ -34,7 +34,6 @@ public class IPForwarder extends Thread {
                 Thread.sleep(50);
             }
                                   
-            //DataInputStream input = new DataInputStream( s.getInputStream()); 
         }
         catch (IOException e){
             System.out.println(e.getMessage());
