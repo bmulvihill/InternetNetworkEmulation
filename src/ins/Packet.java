@@ -11,7 +11,7 @@ import java.util.*;
  * @author bmulvihill
  */
 public class Packet {
-    public static int HEADERSIZE = 67;
+    public static int HEADERSIZE = 71;
     protected String destIP;
     protected int destPort;
     protected int total;
@@ -85,6 +85,10 @@ public class Packet {
     */
     protected byte[] getPacket(){
         return packet;
+    }
+    
+    protected byte[] getPacketWithHeader(){
+        return packetWithHeader;
     }
     
     private byte[] packet;

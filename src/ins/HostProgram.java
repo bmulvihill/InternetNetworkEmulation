@@ -35,7 +35,7 @@ class ChunkThread extends Thread{
                         Packet p = cq.remove();
                         System.out.println(p.size);
                         System.out.println("Writing to Filesystem..");
-                        FileWriter out = new FileWriter("/Users/bmulvihill/Desktop/" + p.fileName, true);   
+                        FileWriter out = new FileWriter("host2/" + p.fileName, true);   
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         baos.write(p.getPacket(), 0, p.size);
                         byte result[] = baos.toByteArray();

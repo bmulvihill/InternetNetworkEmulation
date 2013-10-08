@@ -27,7 +27,7 @@ public class Config {
     
     protected void setConfig(){
             try{
-                BufferedReader inFromUser = new BufferedReader(new FileReader("/Users/bmulvihill/Desktop/config.txt"));
+                BufferedReader inFromUser = new BufferedReader(new FileReader("config.txt"));
                 hostIP = inFromUser.readLine();
                 serverPort = Integer.parseInt(inFromUser.readLine());
                 packetSize = Integer.parseInt(inFromUser.readLine());

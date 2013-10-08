@@ -21,14 +21,14 @@ public class IPForwarder extends Thread {
             while(true){
                 if(!pq.isEmpty()){
                     Packet p = pq.remove();
-                    if("localhost".equals(p.destIP)){
+                    if(Inet4Address.getLocalHost().getHostAddress().toString().equals(p.destIP)){
                         ChunkQueue q = ChunkQueue.getInstance();
                         q.add(p);
                     } else {
                         Socket s = new Socket(p.destIP, Config.getInstance().serverPort);
                         DataOutputStream output = new DataOutputStream( s.getOutputStream()); 
                         output.writeInt((int)p.size + Packet.HEADERSIZE); 
-                        output.write(p.getPacket(), 0, p.size + Packet.HEADERSIZE);  
+                        output.write(p.getPacketWithHeader(), 0, p.size + Packet.HEADERSIZE);  
                     }    
                 }
                 Thread.sleep(50);
