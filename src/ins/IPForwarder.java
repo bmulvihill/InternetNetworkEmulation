@@ -23,10 +23,12 @@ public class IPForwarder extends Thread {
                     Packet p = pq.remove();
                     if(Inet4Address.getLocalHost().getHostAddress().toString().equals(p.destIP)){
                         ChunkQueue q = ChunkQueue.getInstance();
+                        Logger.log("Received Packet: " + p.seqNum + " out of " + p.totalPackets + " from " + p.fileName);
                         q.add(p);
                     } else {
                         Socket s = new Socket(p.destIP, Config.getInstance().serverPort);
                         DataOutputStream output = new DataOutputStream( s.getOutputStream()); 
+                        Logger.log("Sending Packet: " + + p.seqNum + " out of " + p.totalPackets + " from " + p.fileName);
                         output.writeInt((int)p.size + Packet.HEADERSIZE); 
                         output.write(p.getPacketWithHeader(), 0, p.size + Packet.HEADERSIZE);  
                     }    
@@ -36,9 +38,11 @@ public class IPForwarder extends Thread {
                                   
         }
         catch (IOException e){
+            Logger.log(e.getMessage());
             System.out.println(e.getMessage());
         }
         catch (InterruptedException e){
+            Logger.log(e.getMessage());
             System.out.println(e.getMessage());
         }
         

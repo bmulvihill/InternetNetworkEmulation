@@ -30,6 +30,7 @@ public class PacketQueue {
                 wait();
         }
         catch (InterruptedException e) {
+            Logger.log(e.getMessage());
             System.out.println("INTERRUPTED EXCEPTION:"+e.getMessage()); 
         }
             queue.add(p);
@@ -42,6 +43,7 @@ public class PacketQueue {
             wait();
         }
         catch (InterruptedException e) {
+            Logger.log(e.getMessage());
             System.out.println("INTERRUPTED EXCEPTION:"+e.getMessage()); 
         }
         Packet returnPacket = queue.poll();

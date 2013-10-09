@@ -28,6 +28,7 @@ public class IPReceiverServer extends Thread {
             } 
 	} 
 	catch(IOException e) {
+                Logger.log(e.getMessage());
 		System.out.println("Listen :"+e.getMessage());
         } 
     }
@@ -48,7 +49,8 @@ class Connection extends Thread {
                     this.start(); 
                 } 
                     catch(IOException e) {
-                    System.out.println("Connection:"+e.getMessage());
+                        Logger.log(e.getMessage());
+                        System.out.println("Connection: "+e.getMessage());
 		} 
 	  } 
 
@@ -62,23 +64,28 @@ class Connection extends Thread {
                             //Step 2 read byte
                             for(int s; (s=input.read(buffer)) != -1; )
                             {
-                             System.out.println ("Current value of s: " + s);
+                             System.out.println ("Receiving file with size : " + s);
                               Packet p = new Packet(buffer);  
+                              Logger.log("Received packet from: " + p.hostIP );
                               pq.add(p);
                               total += s;
                               if (total == nb) break;
                             }
 			} 
 			catch(EOFException e) {
-			System.out.println("EOF:"+e.getMessage()); } 
+                            Logger.log(e.getMessage());
+                            System.out.println("EOF:"+e.getMessage()); } 
 			catch(IOException e) {
-			System.out.println("IO:"+e.getMessage());}  
+                            Logger.log(e.getMessage());
+                            System.out.println("IO:"+e.getMessage());}  
    
 			finally { 
 			  try { 
                             clientSocket.close();
 			  }
-			  catch (IOException e){/*close failed*/}
+			  catch (IOException e){
+                              Logger.log(e.getMessage());
+                          }
 			}
 		}
 }

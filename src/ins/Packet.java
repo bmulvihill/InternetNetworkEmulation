@@ -11,7 +11,7 @@ import java.util.*;
  * @author bmulvihill
  */
 public class Packet {
-    public static int HEADERSIZE = 71;
+    public static int HEADERSIZE = 82;
     protected String destIP;
     protected int destPort;
     protected int total;
@@ -19,6 +19,7 @@ public class Packet {
     protected int seqNum;
     protected int totalPackets;
     protected String fileName;
+    protected String hostIP;
 
     // Constructor for new packet
     Packet(byte[] packet, HashMap headerMap) {
@@ -51,7 +52,6 @@ public class Packet {
      * @param h HashMap that will be used to set Packet properties
      */
     protected void setHeaderValues(HashMap h){
-        System.out.println(h);
         destIP = h.get("I").toString();
         destPort = Integer.parseInt(h.get("P").toString());
         total = Integer.parseInt(h.get("F").toString());
@@ -59,6 +59,7 @@ public class Packet {
         seqNum = Integer.parseInt(h.get("N").toString());
         totalPackets = Integer.parseInt(h.get("T").toString());
         fileName = h.get("FNAME").toString();
+        hostIP = h.get("H").toString();
     }
     
     /**

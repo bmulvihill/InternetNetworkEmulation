@@ -24,6 +24,12 @@ public class HostThread extends Thread {
                 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                 String[] args = br.readLine().split(" ");
                 if("SEND".equals(args[0].toUpperCase())){
+                    try{
+                        Thread.sleep(1000);
+                    }
+                    catch(InterruptedException e){
+                        Logger.log(e.getMessage());
+                    }
                     parseFile(args);
                 } else 
                 {
@@ -38,13 +44,14 @@ public class HostThread extends Thread {
     
     public void parseFile(String args[]){
         try {
-
+            
             String file = args[1];
             String destIP = args[2];
             File f = new File(file);
+            Logger.log("User Command: " + args[1]);
             BufferedReader inFromUser = new BufferedReader(new FileReader(file));
             int packets = (int)f.length() % 1000 > 0 ? (int)(f.length()/packetSize) +1 : (int)f.length()/packetSize;           
-            System.out.println("File is " + f.length() + " bytes and will be broken into " + packets + " packets");
+            Logger.log("File is " + f.length() + " bytes and will be sent in " + packets + " packets");
             
             FileInputStream in = new FileInputStream(f);
             int count;
@@ -59,6 +66,7 @@ public class HostThread extends Thread {
                 header.put("S", String.format("%04d", count));
                 header.put("N", packetNum);
                 header.put("T", packets);
+                header.put("H", config.hostIP);
                 header.put("FNAME", f.getName());
                 Packet p = new Packet(packet, header);
                 pq.add(p);
@@ -67,9 +75,11 @@ public class HostThread extends Thread {
 
         } 
         catch (FileNotFoundException e) {
+            Logger.log(e.getMessage());
             System.out.println(e.getMessage());
         } 
         catch (IOException e) {
+            Logger.log(e.getMessage());
             System.out.println(e.getMessage());
         }
     }

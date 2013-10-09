@@ -35,7 +35,7 @@ class ChunkThread extends Thread{
                         Packet p = cq.remove();
                         System.out.println(p.size);
                         System.out.println("Writing to Filesystem..");
-                        FileWriter out = new FileWriter("host2/" + p.fileName, true);   
+                        FileWriter out = new FileWriter(p.fileName, true);   
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         baos.write(p.getPacket(), 0, p.size);
                         byte result[] = baos.toByteArray();
@@ -47,9 +47,11 @@ class ChunkThread extends Thread{
                     Thread.sleep(500);
                 }
                 catch (InterruptedException e){
+                    Logger.log(e.getMessage());
                     System.out.println(e.getMessage());
                 }
                 catch (IOException e){
+                    Logger.log(e.getMessage());
                     System.out.println(e.getMessage());
                 }
             }
@@ -74,10 +76,11 @@ class ChunkQueue {
                 wait();
         }
         catch (InterruptedException e) {
+            Logger.log(e.getMessage());
             System.out.println("INTERRUPTED EXCEPTION:"+e.getMessage()); 
         }
             queue.add(p);
-            System.out.println("Chunk Queue: " + queue.size());
+            //System.out.println("Chunk Queue: " + queue.size());
             notifyAll(); 
     }
     
@@ -87,6 +90,7 @@ class ChunkQueue {
             wait();
         }
         catch (InterruptedException e) {
+            Logger.log(e.getMessage());
             System.out.println("INTERRUPTED EXCEPTION:"+e.getMessage()); 
         }
         Packet returnPacket = queue.poll();
