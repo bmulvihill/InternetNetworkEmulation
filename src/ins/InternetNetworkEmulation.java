@@ -10,8 +10,7 @@ import java.io.*;
 
 
 public class InternetNetworkEmulation { 
- public static int HEADERSIZE = 10;
- 
+
 	public static void main (String args[]) 
 	{// arguments supply message and hostname of destination
                 Config config = Config.getInstance();

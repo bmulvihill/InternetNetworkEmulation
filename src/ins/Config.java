@@ -29,7 +29,7 @@ public class Config {
     protected void setConfig(){
             try{
                 BufferedReader inFromUser = new BufferedReader(new FileReader("config.txt"));
-                destIP = inFromUser.readLine();
+                defaultRouterIP = inFromUser.readLine();
                 serverPort = Integer.parseInt(inFromUser.readLine());
                 packetSize = Integer.parseInt(inFromUser.readLine());
                 hostIP = Inet4Address.getLocalHost().getHostAddress().toString();
@@ -42,7 +42,7 @@ public class Config {
             }
     }
     
-    protected String destIP;
+    protected String defaultRouterIP;
     protected String hostIP;
     protected int serverPort;
     protected int packetSize;
