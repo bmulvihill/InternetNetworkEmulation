@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
  */
 public  class Logger {
     public void Logger(){}
-    public static void log(String value){
+    public synchronized static void log(String value){
         try{
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Date date = new Date();

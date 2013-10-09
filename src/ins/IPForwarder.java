@@ -23,7 +23,6 @@ public class IPForwarder extends Thread {
                     Packet p = pq.remove();
                     if(Inet4Address.getLocalHost().getHostAddress().toString().equals(p.destIP)){
                         ChunkQueue q = ChunkQueue.getInstance();
-                        Logger.log("Received Packet: " + p.seqNum + " out of " + p.totalPackets + " from " + p.fileName);
                         q.add(p);
                     } else {
                         Socket s = new Socket(p.destIP, Config.getInstance().serverPort);

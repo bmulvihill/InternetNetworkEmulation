@@ -66,7 +66,7 @@ class Connection extends Thread {
                             {
                              System.out.println ("Receiving file with size : " + s);
                               Packet p = new Packet(buffer);  
-                              Logger.log("Received packet from: " + p.hostIP );
+                              Logger.log("Received Packet from :" + p.hostIP + "| Packet Number: " + p.seqNum  + " out of " + p.totalPackets + " from " + p.fileName);;
                               pq.add(p);
                               total += s;
                               if (total == nb) break;
